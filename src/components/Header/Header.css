@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    height: 100px;
+    width: 100%;
+    /* position:fixed; */
+    /* position: sticky; */
+    background-color: #38497E;
+    display:flex;
+    flex-direction: row;
+}
+
+.heading-title {
+    height: 50px;
+    padding: 25px 20px 25px 20px;
+    font-size: 40px;
+    color: white;
+}
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+
+
+
+
+/* 
+heading-color: #38497E
+button-color: #4C63AA
+light-card: #DFDFDF
+dark-card: #ABABAB
+page-background:#F5F5F5 
+*/

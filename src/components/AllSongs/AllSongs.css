@@ -1,0 +1,36 @@
+.container {
+    /* max-width:1000px; */
+    background-color: #F5F5F5;
+    margin: 0 150px 0 150px;
+    
+    
+}
+
+.container-title {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.container-title p {
+    font-weight: 700;
+    font-size: 40px;
+    
+}
+
+.container img {
+    /* height:40px;
+    width: 40px; */
+}
+
+.main-padding {
+    padding: 0 120px 0 120px;
+}
+
+.all-cards {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin:0 120px 0 120px;
+}
