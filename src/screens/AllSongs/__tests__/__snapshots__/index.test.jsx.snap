@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Song Snapshot should match snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="container"
+    data-testid="songs"
+  >
+    <div
+      class="container-title main-padding"
+    >
+      <p>
+        all Songs
+      </p>
+      <a
+        data-testid="genre"
+        href="/genre"
+      >
+        <img
+          alt="efrrefe"
+          src="icon-genre.svg"
+        />
+      </a>
+    </div>
+    <div
+      class="all-cards"
+    />
+  </section>
+</DocumentFragment>
+`;

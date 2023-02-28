@@ -1,5 +1,5 @@
-import React from "react";
-import './Landing.css'
+import React from 'react';
+import './Landing.css';
 import {Link} from 'react-router-dom';
 
 const Landing = () => {
@@ -9,13 +9,13 @@ const Landing = () => {
                 <p>:((</p>
                 <p>seems a bit empty in here</p>
                 <Link to="/allSongs">
-                <button>sync</button>
+                    <button>sync</button>
                 </Link>
             
             </div>
             
         </section>
-    )
-}
+    );
+};
 
-export default Landing
+export default Landing;
