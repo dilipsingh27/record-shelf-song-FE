@@ -1,47 +1,48 @@
-import React from "react";
+import React,{useState} from "react";
 import './SongCard.css'
 import heartRed from '../../assets/heart-red.svg'
 import heartGray from '../../assets/heart-gray.svg'
 import genrePop from '../../assets/genre-pop.png'
 import axios from "axios";
+import { useEffect } from "react";
+import makeRequest from "../../utils/makeRequest";
+import { GET_SONG_LIKE_BY_ID, UPDATE_SONG_LIKE_BY_ID } from "../../constants/apiEndpoints";
+import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types'
 
 
-const SongCard = ({id,name,imageUrl,artist,genre,like,heart}) => {
+const SongCard = ({id,name,imageUrl,artist,genre}) => {
+    const[like,setLike] = useState()
+    const[likeCount,setLikeCount] = useState()
+    const navigate = useNavigate()
     
-    const fetchTask = async(id)=> {
-        const response =  await fetch(`http://localhost:8080/api/records/${id}/likes`,
-            {headers:{Authorization:'Bearer QWlzaHdhcnlhIE4='}})
-        const data = await response.json()
-        // console.log(data)
-        return data;
-    }
-     
-    const handleClick = async () => {
-        const taskToToggle = await fetchTask(id)
-        // console.log(taskToToggle)
-        const update = {
-                    // count:(like^1)?(like+1):(like-1),
-                    like:(like^1)?true:false
-            }
+    useEffect(()=> {
+        makeRequest(GET_SONG_LIKE_BY_ID(id),{},navigate)
+        .then((response)=> {
+            // console.log(response.data)
+            setLike(response.data.like)
+            setLikeCount(response.data.count)
+        })
+        .catch((e)=> {
             
-        console.log(JSON.stringify(update))
-        const res =  await fetch(`http://localhost:8080/api/records/${id}/likes`,
-                        {
-                            method:'PATCH',
-                            headers: {
-                            "Content-type": 'application/json',
-                            authorization:'Bearer QWlzaHdhcnlhIE4='
-                            },
-                            body: JSON.stringify(update)
-                        })
-        const updatedData = await res.json();
-        console.log(updatedData)
-       
+        })
+    },[])
+
+    const handleLike= () => {
+        makeRequest(UPDATE_SONG_LIKE_BY_ID(id),{data:{like:!like}})
+        .then ((response)=> {
+            setLike(response.data.like)
+            setLikeCount(response.data.count)
+        })
+        .catch((e)=> {
+            
+        })
         
-    }  
+    }
     
     
-    heart = heart?heartRed:heartGray
+    
+    const heart = like?heartRed:heartGray
     return (
         
             <div className="song-card">
@@ -60,8 +61,8 @@ const SongCard = ({id,name,imageUrl,artist,genre,like,heart}) => {
                         </div>
                     </div>
                     <div className="song-react">
-                        <img src={heart} alt="" onClick={async()=> await handleClick(id)} />
-                        <p>{like}</p>
+                        <img src={heart} alt="" onClick={handleLike}/>
+                        <p onClick={handleLike}>{likeCount}</p>
                     </div>
                 </div>
                 </div>
@@ -69,6 +70,14 @@ const SongCard = ({id,name,imageUrl,artist,genre,like,heart}) => {
                 
             </div>
     )
+}
+
+SongCard.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    imageUrl: PropTypes.string,
+    artist: PropTypes.string,
+    genre: PropTypes.string
 }
 
 export default SongCard

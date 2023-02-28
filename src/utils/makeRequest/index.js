@@ -1,42 +1,27 @@
-import axios from 'axios';
-import { BACKEND_URL } from "../../constants/apiEndpoints";
-import { ERROR_ROUTE } from '../../constants/routes';
+import axios from "axios";
+const BACKEND_URL = "http://localhost:8080/";
 
-const makeRequest = async (
-    apiEndPoint,
-    dynamicConfig = {},
-    navigate
-  ) => {
+const makeRequest = async (apiEndPoint, dynamicConfig, navigate) => {
     try {
-      // console.log(dynamicConfig)
-    const requestDetails = {
-      //   baseURL: BACKEND_URL,
-        url: `${BACKEND_URL}${apiEndPoint.url}`,
+      const requestDetails = {
+        baseURL: BACKEND_URL,
+        url: apiEndPoint.url,
         method: apiEndPoint.method,
+        headers: {
+          authorization: "Bearer QWlzaHdhcnlhIE4=",
+        },
         ...dynamicConfig,
       };
-  
       const { data } = await axios(requestDetails);
-      // const res  = await axios(requestDetails);
-      // console.log(res)
-      // console.log(res.data[0].claps)
-      // console.log(res.data)
-      // return res;
       return data;
-    } catch (e) {
-      console.log(e);
-      
-      if(navigate) {
-        const errorStatus = e.response?.status
-        if(errorStatus){
-          navigate(`${ERROR_ROUTE}/${errorStatus}`)
-        }
-        else {
-          navigate(ERROR_ROUTE)
-        }
+    } catch (error) {
+      const errorCode = error.response?.status;
+      if (errorCode) {
+        navigate(`/error/${errorCode}`);
+      } else {
+        navigate("/error");
       }
     }
-    
   };
   
   export default makeRequest;
